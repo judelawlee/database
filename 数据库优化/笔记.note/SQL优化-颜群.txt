@@ -1148,11 +1148,11 @@ insert into linelock(name) values('5')  ;
 		如果仍然报错：可能是防火墙没关闭 ：  在B关闭防火墙  service iptables stop 
 
 
-
 	实现主从同步（主从复制）：图
 		1.master将改变的数 记录在本地的 二进制日志中（binary log） ；该过程 称之为：二进制日志件事
 		2.slave将master的binary log拷贝到自己的 relay log（中继日志文件）中
 		3.中继日志事件，将数据读取到自己的数据库之中
+		
 	MYSQL主从复制 是异步的，串行化的， 有延迟
 	
 	master:slave = 1:n
@@ -1163,7 +1163,7 @@ insert into linelock(name) values('5')  ;
 
 	配置前，为了无误，先将权限(远程访问)、防火墙等处理：
 		关闭windows/linux防火墙： windows：右键“网络”   ,linux: service iptables stop
-		Mysql允许远程连接(windowos/linux)：
+		Mysql允许远程连接(windowos/linux),命令如下（这里是mysql命令）：
 			GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;
 			FLUSH PRIVILEGES;
 	
@@ -1173,7 +1173,7 @@ my.ini
 [mysqld]
 #id
 server-id=1
-#二进制日志文件（注意是/  不是\）
+#二进制日志文件（注意配置文件里面的路径配置是/  不是\）
 log-bin="D:/MySQL/MySQL Server 5.5/data/mysql-bin"
 #错误记录文件
 log-error="D:/MySQL/MySQL Server 5.5/data/mysql-error"
